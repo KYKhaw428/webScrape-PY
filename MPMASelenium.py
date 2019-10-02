@@ -1,10 +1,11 @@
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.common.exceptions import NoSuchElementException
+# from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import re
-import pandas as pd
+# import pandas as pd
 from tabulate import tabulate
 import os
 import requests
@@ -24,40 +25,55 @@ import requests
 url = "http://mpmadirectory.org.my/members_in_alphabetical_order"
 
 #create a new Chrome session
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.implicitly_wait(30)
+driver = webdriver.Chrome()
+driver.implicitly_wait(3)
 driver.get(url)
 
 soup_level0 = BeautifulSoup(driver.page_source, 'lxml')
 
 companylist = [] #empty list
-a = 1 #counter
 
-while a < 730:
+a = 24
 
-    try:
-        # Selenium visit each company page
-        python_button = driver.find_element_by_xpath("//a[@href='http://mpmadirectory.org.my/member/"+str(a)+"']") # can visit each page and go back (cont)
-        # but will stuck when a company page is empty and cannot go beyond the first alphabet
-        python_button.click() #click link
+def loopPage(a):
 
-        # For loop for each company goes here
+    while a < 730:
 
-        # Ask Selenium to click the back button
-        driver.execute_script("window.history.go(-1)")
 
-        #increment counter so it will keep going next page
-        a += 1
 
-    except ValueError:
-        print("Company does not exists")
+        try:
+
+        
+
+
+            # Selenium visit each company page
+            python_button = driver.find_element_by_xpath("//a[@href='http://mpmadirectory.org.my/member/"+str(a)+"']") # can visit each page and go back (cont)
+            # but will stuck when a company page is empty and cannot go beyond the first alphabet
+            python_button.click() #click link
+
+            # For loop for each company goes here
+
+            # Ask Selenium to click the back button
+            driver.execute_script("window.history.go(-1)")
+
+            #increment counter so it will keep going next page
+            a += 1
+
+
+     
+
+        except NoSuchElementException:
+            print("Company does not exists")
+            print(a)
+            a += 1
+            loopPage(a)
         
 
     #end of main loop
 
 # driver.quit()
 
-
+loopPage(24)
 
 
 

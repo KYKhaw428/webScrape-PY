@@ -1,12 +1,12 @@
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import re
-import pandas as pd
+# import pandas as pd
 from tabulate import tabulate
 import os
 import requests
@@ -31,8 +31,8 @@ import requests
 url = "http://www.asiabuilders.com.my/company/list/all"
 
 #create a new Chrome session
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.implicitly_wait(30)
+driver = webdriver.Chrome()
+driver.implicitly_wait(3)
 driver.get(url)
 
 soup_level0 = BeautifulSoup(driver.page_source, 'lxml')
