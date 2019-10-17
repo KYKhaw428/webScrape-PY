@@ -1,19 +1,30 @@
+#### Selenium was not needed to scrape this website as the links for each company detail were in an odered structure
+#### Requests and BeautifulSoup were sufficient into scraping data for this website.
+
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+# Creating an empty list
 companylist = ([])
-n = 1
+n = 1 #counter
 
-while n < 739:
-    r = requests.get(f'http://mpmadirectory.org.my/member/{n}')
+while n < 739: # While loop to go through all company pages and stop at 738th company which is the last company.
+    r = requests.get(f'http://mpmadirectory.org.my/member/{n}') #requests for each individual company link and iterate through counter n.
 
+    #Beautiful soup to parse each company website as text
     soup = BeautifulSoup(r.text, 'html.parser')
+    # Variable to store all results with the li tags of element class: "col-lg-9 col-md-9 col-12 py-2"
     results = soup.find_all('li', attrs={'class':'col-lg-9 col-md-9 col-12 py-2'})
-    tag =  soup.find_all('li', attrs={'class':'col-lg-3 col-md-3 col-12 py-2 font-weight-bold'})
+    # Variable to store all descriptions with the li tags of element class: "col-lg-3 col-md-3 col-12 py-2 font-weight-bold"
+    description =  soup.find_all('li', attrs={'class':'col-lg-3 col-md-3 col-12 py-2 font-weight-bold'})
 
+    # Try and except is used to get each company data, if data does not exist, \n
+    # the code will continue to run with the exception of IndexError and store the variable as 'None'
+    # Code will search for description and store it in a variable colA(1-21) to capture all possible table lenght
+    # The code will then store the respectives data in a variable for each any company details that exists.
     try:
-        colA1 = tag[0].text
+        colA1 = description[0].text
     except IndexError:
         colA1 = 'None'
     try:
@@ -21,7 +32,7 @@ while n < 739:
     except IndexError:
         name = 'None'
     try:
-        colA2 = tag[1].text
+        colA2 = description[1].text
     except IndexError:
         colA2 = 'None'
     try:
@@ -29,7 +40,7 @@ while n < 739:
     except IndexError:
         chief_exec = 'None'
     try:
-        colA3 = tag[2].text
+        colA3 = description[2].text
     except IndexError:
         colA3 = 'None'
     try:
@@ -37,7 +48,7 @@ while n < 739:
     except IndexError:
         ceo = 'None'
     try:
-        colA4 = tag[3].text
+        colA4 = description[3].text
     except IndexError:
         colA4 = 'None'
     try:
@@ -45,7 +56,7 @@ while n < 739:
     except IndexError:
         biz_enquiry = 'None'
     try:
-        colA5 = tag[4].text
+        colA5 = description[4].text
     except IndexError:
         colA5 = 'None'
     try:
@@ -53,7 +64,7 @@ while n < 739:
     except IndexError:
         biz_contact_person = 'None'
     try:
-        colA6 = tag[5].text
+        colA6 = description[5].text
     except IndexError:
         colA6 = 'None'
     try:
@@ -61,7 +72,7 @@ while n < 739:
     except IndexError:
         year_of_corp = 'None'
     try:
-        colA7 = tag[6].text
+        colA7 = description[6].text
     except IndexError:
         colA7 = 'None'
     try:
@@ -69,7 +80,7 @@ while n < 739:
     except IndexError:
         address = 'None'
     try:
-        colA8 = tag[7].text
+        colA8 = description[7].text
     except IndexError:
         colA8 = 'None'
     try:
@@ -77,7 +88,7 @@ while n < 739:
     except IndexError:
         post_code = 'None'
     try:
-        colA9 = tag[8].text
+        colA9 = description[8].text
     except IndexError:
         colA9 = 'None'
     try:
@@ -85,7 +96,7 @@ while n < 739:
     except IndexError:
         city = 'None'
     try:
-        colA10 = tag[9].text
+        colA10 = description[9].text
     except IndexError:
         colA10 = 'None'
     try:
@@ -93,7 +104,7 @@ while n < 739:
     except IndexError:
         state = 'None'
     try:
-        colA11 = tag[10].text
+        colA11 = description[10].text
     except IndexError:
         colA11 = 'None'
     try:
@@ -101,7 +112,7 @@ while n < 739:
     except IndexError:
         country = 'None'
     try:
-        colA12 = tag[11].text
+        colA12 = description[11].text
     except IndexError:
         colA12 = 'None'
     try:
@@ -109,7 +120,7 @@ while n < 739:
     except IndexError:
         telephone = 'None'
     try:
-        colA13 = tag[12].text
+        colA13 = description[12].text
     except IndexError:
         colA13 = 'None'
     try:
@@ -117,7 +128,7 @@ while n < 739:
     except IndexError:
         fax = 'None'
     try:
-        colA14 = tag[13].text
+        colA14 = description[13].text
     except IndexError:
         colA14 = 'None'
     try:
@@ -125,7 +136,7 @@ while n < 739:
     except IndexError:
         email = 'None'
     try:
-        colA15 = tag[14].text
+        colA15 = description[14].text
     except IndexError:
         colA15 = 'None'
     try:
@@ -133,7 +144,7 @@ while n < 739:
     except IndexError:
         website = 'None'
     try:
-        colA16 = tag[15].text
+        colA16 = description[15].text
     except IndexError:
         colA16 = 'None'
     try:
@@ -141,7 +152,7 @@ while n < 739:
     except IndexError:
         rawMat = 'None'
     try:
-        colA17 = tag[16].text
+        colA17 = description[16].text
     except IndexError:
         colA17 = 'None'
     try:
@@ -149,7 +160,7 @@ while n < 739:
     except IndexError:
         prodProcess = 'None'
     try:
-        colA18 = tag[17].text
+        colA18 = description[17].text
     except IndexError:
         colA18 = 'None'
     try:
@@ -157,7 +168,7 @@ while n < 739:
     except IndexError:
         prodManufactured = 'None'
     try:
-        colA19 = tag[18].text
+        colA19 = description[18].text
     except IndexError:
         colA19 = 'None'
     try:
@@ -165,7 +176,7 @@ while n < 739:
     except IndexError:
         miscData1 = 'None'
     try:
-        colA20 = tag[19].text
+        colA20 = description[19].text
     except IndexError:
         colA20 = 'None'
     try:
@@ -173,7 +184,7 @@ while n < 739:
     except IndexError:
         miscData2 = 'None'
     try:
-        colA21 = tag[20].text
+        colA21 = description[20].text
     except IndexError:
         colA21 = 'None'
     try:
@@ -181,11 +192,15 @@ while n < 739:
     except IndexError:
         miscData3 = 'None'
 
-
+    # Combining all the variables into a list
     companylist.append((colA1, name, colA2, chief_exec, colA3, ceo, colA4, biz_enquiry, colA5, biz_contact_person, colA6, year_of_corp, colA7, address, colA8, post_code, colA9, city, colA10, state, colA11, country, colA12, telephone, colA13, fax, colA14, email, colA15, website, colA16, rawMat, colA17, prodProcess, colA18, prodManufactured, colA19, miscData1, colA20, miscData2, colA21, miscData3))
     
+    # Counter to increase 1 each time a the scraping process is done to go to next page.
     n += 1
 
 
+# Using pandas create a dataframe from the list we appended and specifying the columns
+# The data is store with description and the following data.
 df = pd.DataFrame(companylist, columns=['Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data', 'Description', 'Data'])
+# Writing the dataframe into a CSV file
 df.to_csv('MPMAdata.csv', index=False, encoding='utf-8')
