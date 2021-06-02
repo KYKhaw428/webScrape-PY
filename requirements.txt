@@ -79,7 +79,7 @@ tabulate==0.8.3
 Theano==1.0.4
 traitlets==4.3.2
 typing==3.6.6
-urllib3==1.24.1
+urllib3==1.26.5
 virtualenv==16.7.5
 w3lib==1.20.0
 wcwidth==0.1.7
